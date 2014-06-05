@@ -80,33 +80,8 @@ def generate_next_rounds(number_of_players, bracket, byed_players):
             count = 0
     else:
         #TODO work on generate next rounds for byes
-        rounds = get_exponent_base_two((number_of_players / 2)+len(byed_players))
-        matches_next_round = ((number_of_players / 2)+len(byed_players))/2
-        while rounds > 0:
-            while matches_next_round > count:
-                if not is_power_of_two(len(byed_players)) and len(byed_players) != 0:
-                    matches.append([byed_players[count],None])
-                    byed_players.remove(byed_players[count])
-                    count += 1
-                    continue
-                elif len(byed_players) > 0:
-                    count2 = 0
-                    while not len(byed_players) / 2 == 0:
-                        matches.append([byed_players[count2], byed_players[(len(byed_players) - 1) - count2]])
-                        byed_players.remove(byed_players[count2])
-                        byed_players.remove(byed_players[(len(byed_players) - 1) - count2])
-                        count2 += 1
-                    count += 1
-                    continue
-                else:
-                    matches.append([None]*2)
-                    count += 1
-                    continue
-            matches_next_round /= 2
-            bracket.append(matches)
-            matches = []
-            rounds -= 1
-            count = 0
+
+        print ""
     return bracket
 
 def is_power_of_two(number):
@@ -133,8 +108,9 @@ def get_exponent_base_two(number):
     return exponent
 
 #single_elimination_bracket_generation(["alonso", "darian", "michael", "lunita", "5", "6", "7", "8", "alonso2", "darian2", "michael2", "lunita2", "5_2", "6_2", "7_2", "8_2"])
-single_elimination_bracket_generation(["alonso", "darian", "michael", "jack", "aaron cook"])
+#single_elimination_bracket_generation(["alonso", "darian", "michael", "jack", "aaron cook", "servet tezagul"])
 #single_elimination_bracket_generation(["alonso", "darian", "michael", "aaron cook"])
+print 7/2
 
 
 
