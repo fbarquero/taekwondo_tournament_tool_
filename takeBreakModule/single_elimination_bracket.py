@@ -22,21 +22,21 @@ def match_maker(shuffled_players):
     # Object that will represents the bracket
     bracket = []
     # Represents the round matches
-    matches = []
+    matches = {'teams':[], 'results':[]}
     # Number of matches in the first round
     byes = 0
     count = 0
-    print "shuffled players:"
-    print shuffled_players
     byed_players = []
 
     if is_power_of_two(len(shuffled_players)):
         while count != len(shuffled_players) / 2:
-            matches.append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
+            matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
+            matches['results'].append([0, 0])
             count += 1
         bracket.append(matches)
     else:
-        byes = get_byes(len(shuffled_players))
+        next_higher_power_of_two = get_next_higher_power_of_two(len(shuffled_players))
+        byes = next_higher_power_of_two - len(shuffled_players)
         random_used = []
         count = 0
         while count < byes:
@@ -49,40 +49,25 @@ def match_maker(shuffled_players):
             shuffled_players.remove(byed_players[count])
             count += 1
         count = 0
-        while count != len(shuffled_players) / 2:
-            matches.append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
-            count += 1
-        bracket.append(matches)
-        print "Byed Players:"
-        print byed_players
-        print "shufled players after bye process:"
-        print shuffled_players
-    bracket = generate_next_rounds(len(shuffled_players), bracket, byed_players)
-    bracket.append([None])
-    print "bracket:"
-    print bracket
-    return bracket
-
-def generate_next_rounds(number_of_players, bracket, byed_players):
-    count = 0
-    matches = []
-    if len(byed_players) == 0:
-        rounds = get_exponent_base_two(number_of_players)
-        matches_next_round = number_of_players/4
-        while rounds > 1:
-            while matches_next_round > count:
-                matches.append([None]*2)
+        if len(shuffled_players) > len(byed_players):
+            while count != len(shuffled_players) / 2:
+                if count < len(byed_players):
+                    matches['teams'].append([byed_players[count], '-- -- --'])
+                    matches['results'].append([0, -1])
+                matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
+                matches['results'].append([0, 0])
                 count += 1
-            matches_next_round /= 2
-            bracket.append(matches)
-            matches = []
-            rounds -= 1
-            count = 0
-    else:
-        #TODO work on generate next rounds for byes
-
-        print ""
-    return bracket
+        else:
+            while count != next_higher_power_of_two / 2:
+                matches['teams'].append([byed_players[count], '-- -- --'])
+                matches['results'].append([0, -1])
+                if count < len(shuffled_players):
+                    matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
+                    matches['results'].append([0, 0])
+                count += 1
+    print "Matches dict:"
+    print matches
+    return matches
 
 def is_power_of_two(number):
     if number == 0:
@@ -90,15 +75,13 @@ def is_power_of_two(number):
     else:
         return (number & (number - 1) == 0) and (number != 0)
 
-def get_byes(number_of_players):
-    next_higher_power_of_two = 0
+def get_next_higher_power_of_two(number_of_players):
+    result = 0
     count = 1
-    number_of_byes = 0
-    while next_higher_power_of_two < number_of_players:
-        next_higher_power_of_two = int(math.pow(2,count))
+    while result < number_of_players:
+        result = int(math.pow(2,count))
         count += 1
-    number_of_byes = next_higher_power_of_two - number_of_players
-    return number_of_byes
+    return result
 
 def get_exponent_base_two(number):
     exponent = 0
@@ -108,9 +91,9 @@ def get_exponent_base_two(number):
     return exponent
 
 #single_elimination_bracket_generation(["alonso", "darian", "michael", "lunita", "5", "6", "7", "8", "alonso2", "darian2", "michael2", "lunita2", "5_2", "6_2", "7_2", "8_2"])
-#single_elimination_bracket_generation(["alonso", "darian", "michael", "jack", "aaron cook", "servet tezagul"])
-#single_elimination_bracket_generation(["alonso", "darian", "michael", "aaron cook"])
-print 7/2
+#single_elimination_bracket_generation(["alonso", "darian", "michael", "josue", "lucia", "servet tezagul"])
+#single_elimination_bracket_generation(["alonso", "michael", "aaron cook"])
+
 
 
 
