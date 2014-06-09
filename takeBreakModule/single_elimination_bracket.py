@@ -49,21 +49,29 @@ def match_maker(shuffled_players):
             shuffled_players.remove(byed_players[count])
             count += 1
         count = 0
+        bye_count = 0
+        non_byed_player_matches = 0
         if len(shuffled_players) > len(byed_players):
             while count != len(shuffled_players) / 2:
-                if count < len(byed_players):
+                if bye_count < len(byed_players):
                     matches['teams'].append([byed_players[count], '-- -- --'])
                     matches['results'].append([0, -1])
-                matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
-                matches['results'].append([0, 0])
+                    bye_count += 1
+                if len(shuffled_players)/2 > non_byed_player_matches:
+                    matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
+                    matches['results'].append([0, 0])
+                    non_byed_player_matches += 1
                 count += 1
         else:
             while count != next_higher_power_of_two / 2:
-                matches['teams'].append([byed_players[count], '-- -- --'])
-                matches['results'].append([0, -1])
-                if count < len(shuffled_players):
+                if bye_count < len(byed_players):
+                    matches['teams'].append([byed_players[count], '-- -- --'])
+                    matches['results'].append([0, -1])
+                    bye_count += 1
+                if len(shuffled_players)/2 > non_byed_player_matches:
                     matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
                     matches['results'].append([0, 0])
+                    non_byed_player_matches += 1
                 count += 1
     print "Matches dict:"
     print matches
@@ -93,6 +101,7 @@ def get_exponent_base_two(number):
 #single_elimination_bracket_generation(["alonso", "darian", "michael", "lunita", "5", "6", "7", "8", "alonso2", "darian2", "michael2", "lunita2", "5_2", "6_2", "7_2", "8_2"])
 #single_elimination_bracket_generation(["alonso", "darian", "michael", "josue", "lucia", "servet tezagul"])
 #single_elimination_bracket_generation(["alonso", "michael", "aaron cook"])
+single_elimination_bracket_generation(["1", "2", "3", "4", "5", "6"])
 
 
 
