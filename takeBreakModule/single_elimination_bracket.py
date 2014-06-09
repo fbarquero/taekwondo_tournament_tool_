@@ -27,7 +27,6 @@ def match_maker(shuffled_players):
     byes = 0
     count = 0
     byed_players = []
-
     if is_power_of_two(len(shuffled_players)):
         while count != len(shuffled_players) / 2:
             matches['teams'].append([shuffled_players[count], shuffled_players[(len(shuffled_players) - 1) - count]])
