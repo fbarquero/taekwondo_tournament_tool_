@@ -1,0 +1,13 @@
+.team
+150px
+
+div.jQBracket .team div.label
+150px
+
+div.jQBracket .round
+
+div.jQBracket .tools
+
+div.jQBracket .team:nth-child(2){
+
+}
