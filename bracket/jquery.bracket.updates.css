@@ -1,0 +1,40 @@
+img {
+    border-radius: 3px;
+}
+
+div.jQBracket .team:nth-child(2) div.label .img {
+    background-color: red;
+    margin-right: 5px;
+}
+
+div.jQBracket .team:first-child div.label .img {
+    background-color: #0000ff;
+    margin-right: 5px;
+}
+
+div.jQBracket .team {
+    width: 170px;
+}
+
+div.jQBracket .teamContainer {
+    width: 170px;
+}
+
+div.jQBracket .match {
+    width: 170px;
+}
+
+div.jQBracket .match {
+    width: 170px;
+}
+
+div.jQBracket .round {
+    width: 170px;
+}
+div.jQBracket .team div.label {
+    width: 140px;
+}
+
+div.jQBracket .tools {
+    display: none;
+}
