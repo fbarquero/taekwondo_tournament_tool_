@@ -2,24 +2,22 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="jquery.bracket.min.css"/>
-    <link rel="stylesheet" type="text/css" href="jquery.bracket.updates.css"/>
     <script type="text/javascript" src="jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="jquery.bracket.min.js"></script>
 </head>
 <body>
 <div id="matchCallback"></div>
-<span>Test</span>
 <div id="matches"></div>
 
 <div id="save">
-
+    <span>Test</span>
 </div>
 
 <!--Scripts -->
 <script type="text/javascript">
     $(document).ready(function(){
 
-        var saveData = {'results': [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], 'teams': [['15', '6'], ['3', '4'], ['14', '12'], ['9', '11'], ['1', '10'], ['16', '2'], ['8', '13'], ['5', '7']]}
+        var saveData = {'results': [[0, -1], [0, 0], [0, -1], [0, 0]], 'teams': [['michael', '-- -- --'], ['servet tezagul', 'alonso'], ['darian', '-- -- --'], ['lucia', 'josue']]}
 
         /* Called whenever bracket is modified
          *
@@ -27,7 +25,7 @@
          * userData: optional data given when bracket is created.
          */
         function saveFn(data, userData) {
-            var json = $.toJSON(data)
+            var json = jQuery.toJSON(data)
             $('#saveOutput').text('POST '+userData+' '+json)
             /* You probably want to do something like this
              jQuery.ajax("rest/"+userData, {contentType: 'application/json',
@@ -36,28 +34,19 @@
              data: json})
              */
         }
+
+        $(function() {
             var container = $('div#matches')
             container.bracket({
                 init: saveData,
-                save: saveFn
-                //userData: "http://myapi"
-                })
+                save: saveFn,
+                userData: "http://myapi"})
 
-        setTimeout(function(){
-
-             var current_width = $('.bracket').width();
-            console.log("current width: "+current_width)
-            $('.jQBracket').css('width', current_width *2 )
-            $('.bracket').css('width', current_width * 2)
-            console.log("width after chage bracket: "+ $('.bracket').width())
-            console.log("width after chage jQBracket: "+ $('.bracket').width())
-        }, 1000);
             /* You can also inquiry the current data */
-           // var data = container.bracket('data')
-           // $('#dataOutput').text($.toJSON(data))
-
+            var data = container.bracket('data')
+            $('#dataOutput').text(jQuery.toJSON(data))
+        })
     });
-
 </script>
 </body>
 
