@@ -14,13 +14,11 @@ div.jQBracket .team:first-child div.label .img {
 
 div.jQBracket .team {
     width: 170px;
+    border-radius: 4px;
+    margin-bottom: 2px;
 }
 
 div.jQBracket .teamContainer {
-    width: 170px;
-}
-
-div.jQBracket .match {
     width: 170px;
 }
 
